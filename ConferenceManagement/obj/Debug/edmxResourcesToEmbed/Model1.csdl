@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ConferenceManagementDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Activities">
+    <Key>
+      <PropertyRef Name="ActivityID" />
+    </Key>
+    <Property Name="ActivityID" Type="Int32" Nullable="false" />
+    <Property Name="ActivityName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Duration" Type="Int32" />
+    <Property Name="StartTime" Type="DateTime" Precision="3" />
+    <Property Name="EventID" Type="Int32" />
+    <NavigationProperty Name="Events" Relationship="Self.fk_Activities_Events" FromRole="Activities" ToRole="Events" />
+    <NavigationProperty Name="Moderators" Relationship="Self.FK_Moderators_Activities" FromRole="Activities" ToRole="Moderators" />
+    <NavigationProperty Name="Organizers" Relationship="Self.FK_Organizers_Activities" FromRole="Activities" ToRole="Organizers" />
+    <NavigationProperty Name="Participants" Relationship="Self.FK_Participants_Activities" FromRole="Activities" ToRole="Participants" />
+  </EntityType>
+  <EntityType Name="Cities">
+    <Key>
+      <PropertyRef Name="CityID" />
+    </Key>
+    <Property Name="CityID" Type="Int32" Nullable="false" />
+    <Property Name="CityName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CountryCode2" Type="Double" />
+    <NavigationProperty Name="Countries" Relationship="Self.fk_Cities_Countriess" FromRole="Cities" ToRole="Countries" />
+    <NavigationProperty Name="Events" Relationship="Self.fk_Events_Cities" FromRole="Cities" ToRole="Events" />
+  </EntityType>
+  <EntityType Name="Countries">
+    <Key>
+      <PropertyRef Name="Code2" />
+    </Key>
+    <Property Name="Code2" Type="Double" Nullable="false" />
+    <Property Name="CountryName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EnglishCountryName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Cities" Relationship="Self.fk_Cities_Countriess" FromRole="Countries" ToRole="Cities" />
+  </EntityType>
+  <EntityType Name="Events">
+    <Key>
+      <PropertyRef Name="EventID" />
+    </Key>
+    <Property Name="EventID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EventName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EventDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Duration" Type="Int32" />
+    <Property Name="CityID" Type="Int32" />
+    <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Activities" Relationship="Self.fk_Activities_Events" FromRole="Events" ToRole="Activities" />
+    <NavigationProperty Name="Cities" Relationship="Self.fk_Events_Cities" FromRole="Events" ToRole="Cities" />
+    <NavigationProperty Name="Organizers" Relationship="Self.fk_Organizers_Events" FromRole="Events" ToRole="Organizers" />
+    <NavigationProperty Name="Results" Relationship="Self.fk_Results_Events" FromRole="Events" ToRole="Results" />
+  </EntityType>
+  <EntityType Name="Jury">
+    <Key>
+      <PropertyRef Name="JuryID" />
+    </Key>
+    <Property Name="JuryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="ActivityID" Type="Int32" Nullable="false" />
+    <Property Name="Specialization" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Jury__UserID__403A8C7D" FromRole="Jury" ToRole="Users" />
+    <NavigationProperty Name="Users1" Relationship="Self.FK_Jury_Users" FromRole="Jury" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Moderators">
+    <Key>
+      <PropertyRef Name="ModeratorID" />
+    </Key>
+    <Property Name="ModeratorID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="Specialization" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ActivityID" Type="Int32" />
+    <NavigationProperty Name="Activities" Relationship="Self.FK_Moderators_Activities" FromRole="Moderators" ToRole="Activities" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Moderators_Users" FromRole="Moderators" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Organizers">
+    <Key>
+      <PropertyRef Name="OrganizerID" />
+    </Key>
+    <Property Name="OrganizerID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="EventID" Type="Int32" Nullable="false" />
+    <Property Name="ActivityID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Activities" Relationship="Self.FK_Organizers_Activities" FromRole="Organizers" ToRole="Activities" />
+    <NavigationProperty Name="Events" Relationship="Self.fk_Organizers_Events" FromRole="Organizers" ToRole="Events" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Organizers_Users" FromRole="Organizers" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Participants">
+    <Key>
+      <PropertyRef Name="ParticipantID" />
+    </Key>
+    <Property Name="ParticipantID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="ActivityID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Activities" Relationship="Self.FK_Participants_Activities" FromRole="Participants" ToRole="Activities" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Participa__UserI__440B1D61" FromRole="Participants" ToRole="Users" />
+    <NavigationProperty Name="Results" Relationship="Self.FK__Results__Partici__47DBAE45" FromRole="Participants" ToRole="Results" />
+    <NavigationProperty Name="Users1" Relationship="Self.FK_Participants_Users" FromRole="Participants" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Results">
+    <Key>
+      <PropertyRef Name="ResultID" />
+    </Key>
+    <Property Name="ResultID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParticipantID" Type="Int32" Nullable="false" />
+    <Property Name="EventID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Events" Relationship="Self.fk_Results_Events" FromRole="Results" ToRole="Events" />
+    <NavigationProperty Name="Participants" Relationship="Self.FK__Results__Partici__47DBAE45" FromRole="Results" ToRole="Participants" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+    <Property Name="BirthDate" Type="DateTime" Precision="0" />
+    <Property Name="Country" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="ProfilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Jury" Relationship="Self.FK__Jury__UserID__403A8C7D" FromRole="Users" ToRole="Jury" />
+    <NavigationProperty Name="Jury1" Relationship="Self.FK_Jury_Users" FromRole="Users" ToRole="Jury" />
+    <NavigationProperty Name="Moderators" Relationship="Self.FK_Moderators_Users" FromRole="Users" ToRole="Moderators" />
+    <NavigationProperty Name="Organizers" Relationship="Self.FK_Organizers_Users" FromRole="Users" ToRole="Organizers" />
+    <NavigationProperty Name="Participants" Relationship="Self.FK__Participa__UserI__440B1D61" FromRole="Users" ToRole="Participants" />
+    <NavigationProperty Name="Participants1" Relationship="Self.FK_Participants_Users" FromRole="Users" ToRole="Participants" />
+  </EntityType>
+  <Association Name="fk_Activities_Events">
+    <End Role="Events" Type="Self.Events" Multiplicity="0..1" />
+    <End Role="Activities" Type="Self.Activities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Events">
+        <PropertyRef Name="EventID" />
+      </Principal>
+      <Dependent Role="Activities">
+        <PropertyRef Name="EventID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Moderators_Activities">
+    <End Role="Activities" Type="Self.Activities" Multiplicity="0..1" />
+    <End Role="Moderators" Type="Self.Moderators" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Activities">
+        <PropertyRef Name="ActivityID" />
+      </Principal>
+      <Dependent Role="Moderators">
+        <PropertyRef Name="ActivityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Organizers_Activities">
+    <End Role="Activities" Type="Self.Activities" Multiplicity="1" />
+    <End Role="Organizers" Type="Self.Organizers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Activities">
+        <PropertyRef Name="ActivityID" />
+      </Principal>
+      <Dependent Role="Organizers">
+        <PropertyRef Name="ActivityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Participants_Activities">
+    <End Role="Activities" Type="Self.Activities" Multiplicity="1" />
+    <End Role="Participants" Type="Self.Participants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Activities">
+        <PropertyRef Name="ActivityID" />
+      </Principal>
+      <Dependent Role="Participants">
+        <PropertyRef Name="ActivityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Cities_Countriess">
+    <End Role="Countries" Type="Self.Countries" Multiplicity="0..1" />
+    <End Role="Cities" Type="Self.Cities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Countries">
+        <PropertyRef Name="Code2" />
+      </Principal>
+      <Dependent Role="Cities">
+        <PropertyRef Name="CountryCode2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Events_Cities">
+    <End Role="Cities" Type="Self.Cities" Multiplicity="0..1" />
+    <End Role="Events" Type="Self.Events" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="CityID" />
+      </Principal>
+      <Dependent Role="Events">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Organizers_Events">
+    <End Role="Events" Type="Self.Events" Multiplicity="1" />
+    <End Role="Organizers" Type="Self.Organizers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Events">
+        <PropertyRef Name="EventID" />
+      </Principal>
+      <Dependent Role="Organizers">
+        <PropertyRef Name="EventID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Results_Events">
+    <End Role="Events" Type="Self.Events" Multiplicity="1" />
+    <End Role="Results" Type="Self.Results" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Events">
+        <PropertyRef Name="EventID" />
+      </Principal>
+      <Dependent Role="Results">
+        <PropertyRef Name="EventID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Jury__UserID__403A8C7D">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Jury" Type="Self.Jury" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Jury">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Jury_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Jury" Type="Self.Jury" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Jury">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Moderators_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Moderators" Type="Self.Moderators" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Moderators">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Organizers_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Organizers" Type="Self.Organizers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Organizers">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Participa__UserI__440B1D61">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Participants" Type="Self.Participants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Participants">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Results__Partici__47DBAE45">
+    <End Role="Participants" Type="Self.Participants" Multiplicity="1" />
+    <End Role="Results" Type="Self.Results" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Participants">
+        <PropertyRef Name="ParticipantID" />
+      </Principal>
+      <Dependent Role="Results">
+        <PropertyRef Name="ParticipantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Participants_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Participants" Type="Self.Participants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Participants">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ConferenceManagementDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Activities" EntityType="Self.Activities" />
+    <EntitySet Name="Cities" EntityType="Self.Cities" />
+    <EntitySet Name="Countries" EntityType="Self.Countries" />
+    <EntitySet Name="Events" EntityType="Self.Events" />
+    <EntitySet Name="Jury" EntityType="Self.Jury" />
+    <EntitySet Name="Moderators" EntityType="Self.Moderators" />
+    <EntitySet Name="Organizers" EntityType="Self.Organizers" />
+    <EntitySet Name="Participants" EntityType="Self.Participants" />
+    <EntitySet Name="Results" EntityType="Self.Results" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="fk_Activities_Events" Association="Self.fk_Activities_Events">
+      <End Role="Events" EntitySet="Events" />
+      <End Role="Activities" EntitySet="Activities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Moderators_Activities" Association="Self.FK_Moderators_Activities">
+      <End Role="Activities" EntitySet="Activities" />
+      <End Role="Moderators" EntitySet="Moderators" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Organizers_Activities" Association="Self.FK_Organizers_Activities">
+      <End Role="Activities" EntitySet="Activities" />
+      <End Role="Organizers" EntitySet="Organizers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Participants_Activities" Association="Self.FK_Participants_Activities">
+      <End Role="Activities" EntitySet="Activities" />
+      <End Role="Participants" EntitySet="Participants" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Cities_Countriess" Association="Self.fk_Cities_Countriess">
+      <End Role="Countries" EntitySet="Countries" />
+      <End Role="Cities" EntitySet="Cities" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Events_Cities" Association="Self.fk_Events_Cities">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="Events" EntitySet="Events" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Organizers_Events" Association="Self.fk_Organizers_Events">
+      <End Role="Events" EntitySet="Events" />
+      <End Role="Organizers" EntitySet="Organizers" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Results_Events" Association="Self.fk_Results_Events">
+      <End Role="Events" EntitySet="Events" />
+      <End Role="Results" EntitySet="Results" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Jury__UserID__403A8C7D" Association="Self.FK__Jury__UserID__403A8C7D">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Jury" EntitySet="Jury" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Jury_Users" Association="Self.FK_Jury_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Jury" EntitySet="Jury" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Moderators_Users" Association="Self.FK_Moderators_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Moderators" EntitySet="Moderators" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Organizers_Users" Association="Self.FK_Organizers_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Organizers" EntitySet="Organizers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Participa__UserI__440B1D61" Association="Self.FK__Participa__UserI__440B1D61">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Participants" EntitySet="Participants" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Results__Partici__47DBAE45" Association="Self.FK__Results__Partici__47DBAE45">
+      <End Role="Participants" EntitySet="Participants" />
+      <End Role="Results" EntitySet="Results" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Participants_Users" Association="Self.FK_Participants_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Participants" EntitySet="Participants" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ConferenceManagementDBModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ConferenceManagementDBModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

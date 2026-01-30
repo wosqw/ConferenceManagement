@@ -1,0 +1,27 @@
+﻿<Page x:Class="ConferenceManagement.Views.OrganizerActivitiesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Активности">
+    <DockPanel Margin="12">
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,8" VerticalAlignment="Center">
+            <TextBlock Text="Мероприятие:" VerticalAlignment="Center"/>
+            <ComboBox x:Name="EventFilter" Width="240" Margin="8,0" SelectionChanged="OnFilterChanged" Style="{StaticResource ComboBoxStyle}"/>
+            <TextBlock Text="Поиск:" VerticalAlignment="Center"/>
+            <TextBox x:Name="SearchBox" Width="240" Margin="8,0" TextChanged="OnFilterChanged" Style="{StaticResource TextBoxStyle}"/>
+            <ToggleButton x:Name="SortAsc" Content="Сорт ↑" Margin="8,0" Checked="OnFilterChanged" Unchecked="OnFilterChanged"/>
+            <Button Content="Добавить активность" Margin="16,0,0,0" Click="OnAdd" Style="{StaticResource AccentButtonStyle}"/>
+            <Button Content="Удалить" Margin="8,0,0,0" Click="OnDelete" Style="{StaticResource AccentButtonStyle}"/>
+        </StackPanel>
+        <ListView x:Name="List" MouseDoubleClick="OnEdit">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ActivityID}" Width="60"/>
+                    <GridViewColumn Header="Название" DisplayMemberBinding="{Binding ActivityName}" Width="220"/>
+                    <GridViewColumn Header="Мероприятие" DisplayMemberBinding="{Binding Events.EventName}" Width="220"/>
+                    <GridViewColumn Header="Начало" DisplayMemberBinding="{Binding StartTime, StringFormat=dd.MM.yyyy HH:mm}" Width="160"/>
+                    <GridViewColumn Header="Длительность" DisplayMemberBinding="{Binding Duration}" Width="100"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+</Page>

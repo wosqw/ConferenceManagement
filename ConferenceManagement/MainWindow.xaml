@@ -1,0 +1,19 @@
+﻿<Window x:Class="ConferenceManagement.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConferenceManagement"
+        xmlns:views="clr-namespace:ConferenceManagement.Views"
+        mc:Ignorable="d"
+        Title="Conference Management" Height="600" Width="960"
+        Style="{StaticResource WindowStyle}">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Background="#2b2f3a" Height="44">
+            <TextBlock Text="Conference Management" Foreground="White" VerticalAlignment="Center" Margin="12,0" FontWeight="Bold"/>
+            <Button Content="Назад" Margin="8" Width="100" Click="OnBack" Style="{StaticResource AccentButtonStyle}"/>
+            <Button Content="Выход" Margin="8" Width="100" Click="OnLogout" Style="{StaticResource AccentButtonStyle}"/>
+        </StackPanel>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+    </DockPanel>
+</Window>

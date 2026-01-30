@@ -1,0 +1,43 @@
+﻿<Window x:Class="ConferenceManagement.Views.ActivityEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Редактор активности" Height="360" Width="520" WindowStartupLocation="CenterOwner"
+        Style="{StaticResource WindowStyle}">
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Мероприятие" Grid.Row="0" Margin="0,0,8,8"/>
+            <ComboBox x:Name="EventBox" Grid.Row="0" Grid.Column="1" Margin="0,0,0,8" Style="{StaticResource ComboBoxStyle}"/>
+
+            <TextBlock Text="Название" Grid.Row="1" Margin="0,0,8,8"/>
+            <TextBox x:Name="NameBox" Grid.Row="1" Grid.Column="1" Margin="0,0,0,8" Style="{StaticResource TextBoxStyle}"/>
+
+            <TextBlock Text="Описание" Grid.Row="2" Margin="0,0,8,8"/>
+            <TextBox x:Name="DescBox" Grid.Row="2" Grid.Column="1" Margin="0,0,0,8" AcceptsReturn="True" Height="60" Style="{StaticResource TextBoxStyle}"/>
+
+            <TextBlock Text="Время начала" Grid.Row="3" Margin="0,0,8,8"/>
+            <ComboBox x:Name="StartBox" Grid.Row="3" Grid.Column="1" Margin="0,0,0,8" Style="{StaticResource ComboBoxStyle}"/>
+
+            <TextBlock Text="Длительность (мин)" Grid.Row="4" Margin="0,0,8,0"/>
+            <TextBox x:Name="DurationBox" Grid.Row="4" Grid.Column="1" Text="90" IsReadOnly="True" Style="{StaticResource TextBoxStyle}"/>
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+            <Button Content="Сохранить" Width="120" Margin="0,0,8,0" Click="OnSave" Style="{StaticResource AccentButtonStyle}"/>
+            <Button Content="Отмена" Width="120" Click="OnCancel" Style="{StaticResource AccentButtonStyle}"/>
+        </StackPanel>
+    </Grid>
+</Window>
