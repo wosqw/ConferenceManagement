@@ -132,6 +132,42 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <!-- Services -->
+    <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\ImageHelper.cs" />
+    <!-- Views -->
+    <Page Include="Views\ActivityEditorWindow.xaml" />
+    <Compile Include="Views\ActivityEditorWindow.xaml.cs">
+      <DependentUpon>ActivityEditorWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\EventDetailsPage.xaml" />
+    <Compile Include="Views\EventDetailsPage.xaml.cs">
+      <DependentUpon>EventDetailsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\LoginPage.xaml" />
+    <Compile Include="Views\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\OrganizerActivitiesPage.xaml" />
+    <Compile Include="Views\OrganizerActivitiesPage.xaml.cs">
+      <DependentUpon>OrganizerActivitiesPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\OrganizerDashboardPage.xaml" />
+    <Compile Include="Views\OrganizerDashboardPage.xaml.cs">
+      <DependentUpon>OrganizerDashboardPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\PublicEventsPage.xaml" />
+    <Compile Include="Views\PublicEventsPage.xaml.cs">
+      <DependentUpon>PublicEventsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
